@@ -1,0 +1,30 @@
+{% extends '_layouts/_main.twig' %}
+{% block body %}
+{% for block in entry.blogPost.all %}
+    {% if block.type == 'scripture' %}
+        <p class="blockquote">
+            {% for i, row in block.text %}
+                <span>
+                    <sup>{{ i + block.startingVerse }}</sup>
+                    <span>{{ row.verse }}</span>
+                </span>
+            {% endfor %}
+            <sub>
+                <span>{{ block.book.one.title }}</span>
+                {% if block.text|length > 1 %}
+                    <span>{{ block.chapter }}:{{ block.startingVerse }}-{{ block.startingVerse + block.text|length -1 }}</span>
+                {% else %}
+                    <span>{{ block.chapter }}:{{ block.startingVerse }}</span>
+                {% endif %}
+                <span>({{ block.translation.one.title }})</span>
+            </sub>
+        </p>
+    {% endif %}
+    {% if block.type == 'question' %}
+        <div class="alert alert-warning">{{ block.question }}</div>
+    {% endif %}
+    {% if block.type == 'comment' %}
+        <div class="alert alert-secondary">{{ block.comment }}</div>
+    {% endif %}
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends '_layouts/_main.twig' %}
+{% block body %}
+    <div class="list-group">
+    {% for entry in craft.entries.section('blogPosts').all %}
+        <a href="{{ entry.url }}" class="list-group-item list-group-item-action">{{ entry.title }}</a>
+    {% endfor %}
+    </div>
+{% endblock %}
